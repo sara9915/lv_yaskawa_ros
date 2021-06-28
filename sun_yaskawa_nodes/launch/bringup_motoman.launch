@@ -1,0 +1,18 @@
+<launch>
+
+<group ns="motoman">
+
+<rosparam command="load" file="$(find motoman_sia5d_support)/urdf/sia5d.urdf" ns="robot_description" />
+
+<include file="$(find motoman_driver)/launch/robot_interface_streaming_fs100.launch">
+
+	<arg name="robot_ip" value="192.168.2.101"/>
+
+</include>
+
+<node name="motoman_interface"  pkg="sun_yaskawa_nodes" type="motoman_interface" output="screen">
+</node>
+
+</group>
+
+</launch>
