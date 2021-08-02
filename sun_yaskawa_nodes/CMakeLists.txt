@@ -9,6 +9,8 @@ project(sun_yaskawa_nodes)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
 sun_robot_ros
+nodelet
+pluginlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -101,9 +103,9 @@ sun_robot_ros
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES sun_iiwa_nodes
-#  CATKIN_DEPENDS other_catkin_pkg
+    INCLUDE_DIRS include
+    LIBRARIES yaskawa_fkine_nodelet
+    CATKIN_DEPENDS nodelet pluginlib
 #  DEPENDS system_lib
 )
 
@@ -114,8 +116,16 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
  ${catkin_INCLUDE_DIRS}
+)
+
+add_library(yaskawa_fkine_nodelet
+  src/${PROJECT_NAME}/Yaskawa_FkineNodelet.cpp
+)
+add_dependencies(yaskawa_fkine_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(yaskawa_fkine_nodelet
+${catkin_LIBRARIES}
 )
 
 ## Declare a C++ library

@@ -1,0 +1,9 @@
+<library path="lib/libyaskawa_fkine_nodelet">
+  <class name="sun_yaskawa_nodes/Yaskawa_FkineNodelet"
+     type="sun_yaskawa_nodes::Yaskawa_FkineNodelet"
+     base_class_type="nodelet::Nodelet">
+    <description>
+     Nodelet Yaskawa_FkineNodelet
+    </description>  
+    </class>
+</library>
