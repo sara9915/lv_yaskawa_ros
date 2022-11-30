@@ -9,7 +9,8 @@ namespace sun {
 
 class Yaskawa_FkineNode : public FkineNode {
 private:
-  /* data */
+  ros::Subscriber joint_sub_;
+
 public:
   static std::shared_ptr<sun::MotomanSIA5F> makeMotoman() {
     return std::make_shared<sun::MotomanSIA5F>("SIA5F");
@@ -41,7 +42,12 @@ public:
     qR[4] = joi_state_msg->position[4];
     qR[5] = joi_state_msg->position[5];
     qR[6] = joi_state_msg->position[6];
-    publishFkine(qR);
+
+    updateJoint(qR);
+    // updateJointVel(qdotR);
+    
+    publishAll();
+
   }
 };
 } // namespace sun
