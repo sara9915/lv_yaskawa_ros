@@ -1,24 +1,30 @@
 - git:
-    local-name: ros2_wsg32_description
-    uri: https://github.com/sara9915/wsg32_description_ros2.git
-    version: main
+    local-name: sun_robot_ros
+    uri: https://github.com/marcocostanzo/sun_robot_ros.git
+    version: master
 
 - git:
-    local-name: ros2_yaskawa_description
-    uri: https://github.com/sara9915/yaskawa_description_ros2.git
-    version: main
+    local-name: sun_robot_lib
+    uri: https://github.com/marcocostanzo/sun_robot_lib.git
+    version: separate_clik
 
 - git:
-    local-name: ros2_gripper_description
-    uri: https://github.com/sara9915/gripper_description_ros2.git
-    version: main
+    local-name: sun_math_toolbox
+    uri: https://github.com/marcocostanzo/sun_math_toolbox.git
+    version: master
 
 - git:
-    local-name: ros2_sun_fingers_description
-    uri: https://github.com/sara9915/sun_fingers_description_ros2.git
-    version: main
+    local-name: ros_toon
+    uri: https://github.com/marcocostanzo/ros_toon.git
+    version: master
 
 - git:
-    local-name: realsense_gazebo_plugin
-    uri: https://github.com/pal-robotics/realsense_gazebo_plugin.git
-    version: foxy-devel
+    local-name: sun_ros_msgs
+    uri: https://github.com/marcocostanzo/sun_ros_msgs.git
+    version: master
+
+- git:
+    local-name: sun_traj_lib
+    uri: https://github.com/marcocostanzo/sun_traj_lib.git
+    version: master
+
