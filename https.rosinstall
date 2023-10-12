@@ -1,0 +1,24 @@
+- git:
+    local-name: ros2_wsg32_description
+    uri: https://github.com/sara9915/wsg32_description_ros2.git
+    version: main
+
+- git:
+    local-name: ros2_yaskawa_description
+    uri: https://github.com/sara9915/yaskawa_description_ros2.git
+    version: main
+
+- git:
+    local-name: ros2_gripper_description
+    uri: https://github.com/sara9915/gripper_description_ros2.git
+    version: main
+
+- git:
+    local-name: ros2_sun_fingers_description
+    uri: https://github.com/sara9915/sun_fingers_description_ros2.git
+    version: main
+
+- git:
+    local-name: realsense_gazebo_plugin
+    uri: https://github.com/pal-robotics/realsense_gazebo_plugin.git
+    version: foxy-devel
