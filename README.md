@@ -16,6 +16,7 @@ Follow the steps below to set up the package on your local machine. The suggeste
     ```
 
 2. **Install packages dependencies**
+   
     The packages listed in `https.rosinstall` have to be installed. You can use `wstool` as follows:
    ```bash
     # In the src of your ros2 ws
@@ -27,6 +28,11 @@ Follow the steps below to set up the package on your local machine. The suggeste
    ```bash
     cd ~/my_ros2_ws
     rosdep install -i --from-path src --rosdistro ${ROS_DISTRO} -y
+    ```
+
+   Finally, install the following libraries:
+   ```bash
+    sudo apt-get install libblas-dev liblapack-dev
     ```
    
 4. **Build**
