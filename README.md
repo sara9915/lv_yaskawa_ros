@@ -21,7 +21,7 @@ Follow the steps below to set up the package on your local machine. The suggeste
    ```bash
     # In the src of your ros2 ws
     wstool init #if not already initialized
-    wstool merge https://github.com/sara9915/uclv_yaskawa_ros/blob/main/https.rosinstall
+    wstool merge https://raw.githubusercontent.com/sara9915/uclv_yaskawa_ros/main/https.rosinstall
     wstool update
     ```
    Check dependecies package as follows:
