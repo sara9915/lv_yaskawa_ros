@@ -7,11 +7,11 @@ This repo allows you to communicate and control the SIA5F Yaskawa robot on ROS1 
 If you want to use the packages on your local machine follow the instruction in [local setup](#local-setup), otherwise you can use a docker container as in [docker setup](#docker-setup).
 
 ## Local setup
-Follow the steps below to set up the package on your local machine. The suggested ROS2 version is ROS-Humble on Ubuntu 22.04.
+Follow the steps below to set up the package on your local machine. 
 
-1. **Add the repository to your ROS2 workspace**
+1. **Add the repository to your ROS workspace**
     ```bash
-    cd ~/my_ros2_ws/src
+    cd ~/my_ros_ws/src
     git clone https://github.com/sara9915/uclv_yaskawa_ros.git
     ```
 
@@ -19,14 +19,14 @@ Follow the steps below to set up the package on your local machine. The suggeste
    
     The packages listed in `https.rosinstall` have to be installed. You can use `wstool` as follows:
    ```bash
-    # In the src of your ros2 ws
+    # In the src of your ros ws
     wstool init #if not already initialized
     wstool merge https://raw.githubusercontent.com/sara9915/uclv_yaskawa_ros/main/https.rosinstall
     wstool update
     ```
    Check dependecies package as follows:
    ```bash
-    cd ~/my_ros2_ws
+    cd ~/my_ros_ws
     rosdep install -i --from-path src --rosdistro ${ROS_DISTRO} -y
     ```
 
@@ -37,15 +37,15 @@ Follow the steps below to set up the package on your local machine. The suggeste
    
 4. **Build**
     ```bash
-    cd ~/my_ros2_ws
-    colcon build 
+    cd ~/my_ros_ws
+    catkin build 
     ```
 
 
 ## Docker setup
 First, create the docker image:
 ```bash
-docker build -t ros_noetic:yaskawa https://raw.githubusercontent.com/sara9915/lv_yaskawa_ros/main/Dockerfile
+docker build -t ros_noetic:yaskawa https://raw.githubusercontent.com/sara9915/uclv_yaskawa_ros/main/Dockerfile
 ```
 Then, create the docker container:
 ```bash
