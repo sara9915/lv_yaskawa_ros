@@ -12,7 +12,7 @@ Follow the steps below to set up the package on your local machine. The suggeste
 1. **Add the repository to your ROS2 workspace**
     ```bash
     cd ~/my_ros2_ws/src
-    git clone https://github.com/sara9915/lv_yaskawa_ros.git
+    git clone https://github.com/sara9915/uclv_yaskawa_ros.git
     ```
 
 2. **Install packages dependencies**
@@ -21,7 +21,7 @@ Follow the steps below to set up the package on your local machine. The suggeste
    ```bash
     # In the src of your ros2 ws
     wstool init #if not already initialized
-    wstool merge https://github.com/sara9915/lv_yaskawa_ros/blob/main/https.rosinstall
+    wstool merge https://github.com/sara9915/uclv_yaskawa_ros/blob/main/https.rosinstall
     wstool update
     ```
    Check dependecies package as follows:
