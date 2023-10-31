@@ -1,9 +1,11 @@
-ARG FROM_IMAGE=ros:noetic-ros-base
-ARG OVERLAY_WS=/home/yaskawa_ws
-ARG OVERLAY_WS_ROS2=/home/ros1_bridge_ws
+ARG FROM_IMAGE=ros:foxy-ros1-bridge
+ARG OVERLAY_WS_ROS1=/home/yaskawa_ws
 
 
 FROM $FROM_IMAGE 
+ARG OVERLAY_WS_ROS1
+WORKDIR $OVERLAY_WS_ROS1/src
+
 
 # Usefull packages
 RUN apt update -y \
@@ -15,12 +17,14 @@ RUN apt update -y \
     ros-noetic-catkin \
     libblas-dev \ 
     liblapack-dev \ 
-    && pip install vcstool 
+    && pip install vcstool \
+    && apt-get install -y ros-noetic-ros-control ros-noetic-ros-controllers \
+    && apt-get install -y ros-noetic-industrial-core \
+    && apt-get install -y ros-noetic-nodelet-core
     
 ################# Clone required repositories ######################
-ARG OVERLAY_WS
-WORKDIR $OVERLAY_WS/src
-
+ARG OVERLAY_WS_ROS1
+WORKDIR $OVERLAY_WS_ROS1/src
 
 # Clone sun_yaskawa_ros
 RUN echo "\
@@ -106,58 +110,18 @@ RUN mkdir -p /tmp/opt && \
 
 
 # install overlay dependencies
-ARG OVERLAY_WS
-WORKDIR $OVERLAY_WS
-RUN . /opt/ros/$ROS_DISTRO/setup.sh && \
+ARG OVERLAY_WS_ROS1
+WORKDIR $OVERLAY_WS_ROS1
+RUN . /opt/ros/$ROS1_DISTRO/setup.sh && \
     apt-get update && rosdep install --from-paths src --ignore-src -r -y \
     && rm -rf /var/lib/apt/lists/* 
 
 # build overlay source
-RUN . /opt/ros/$ROS_DISTRO/setup.sh && \
+RUN . /opt/ros/$ROS1_DISTRO/setup.sh && \
     catkin build 
 
 RUN echo "source devel/setup.bash" >> ~/.bashrc
 
-# Install ROS2 Foxy for ros1_bridge
-# Set locale
-RUN  apt update && apt install locales \
-    && locale-gen en_US en_US.UTF-8 \
-    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
-    && export LANG=en_US.UTF-8
-
-# Setup sources
-RUN apt install software-properties-common -y \
-    && add-apt-repository universe -y \
-    && apt update && apt install curl -y \
-    && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-
-# Install ROS2 package
-RUN apt update -y \
-    && apt upgrade -y \
-    && DEBIAN_FRONTEND=noninteractive apt install ros-foxy-desktop python3-argcomplete -y 
-RUN apt install ros-dev-tools -y 
-    
-# Install ros1_bridge
-   
-
-# Clone sun_traj_lib
-ARG OVERLAY_WS_ROS2
-WORKDIR $OVERLAY_WS_ROS2/src
-RUN echo "\
-repositories: \n\
-  ros1_bridge: \n\
-    type: git \n\
-    url: https://github.com/ros2/ros1_bridge.git \n\
-    version: foxy \n\
-" > overlay.repos
-RUN vcs import ./ < overlay.repos
-
-ARG OVERLAY_WS_ROS2
-WORKDIR $OVERLAY_WS_ROS2
-RUN . /opt/ros/foxy/setup.sh \
-    && colcon build --packages-select ros1_bridge --cmake-force-configure --cmake-args -DBUILD_TESTING=FALSE \
-    && . install/setup.sh
 
 
 
