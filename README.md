@@ -42,7 +42,7 @@ Follow the steps below to set up the package on your local machine.
     ```
 
 
-## Docker setup
+## Docker setup on ROS1
 First, create the docker image:
 ```bash
 docker build -t ros_noetic:yaskawa https://raw.githubusercontent.com/sara9915/uclv_yaskawa_ros/main/Dockerfile
@@ -53,6 +53,39 @@ docker run -it --name yaskawa_container ros_noetic:yaskawa
 ```
 Now you are able to launch the ros nodes.
 
-## Launch nodes
+## Docker setup for ROS2 
+If you need to use this package in ROS2, you can use the ros_bridge package. First, create the docker image:
+```bash
+docker build -t ros_noetic:yaskawa https://raw.githubusercontent.com/sara9915/uclv_yaskawa_ros/main/Dockerfile.ros2
+```
+Then, create the docker container: 
+```bash
+docker run -it --name yaskawa_container ros_bridge:yaskawa
+```
+Now, you have a container with ROS1 Noetic, ROS2 Foxy and ros1_bridge installed. Also this repo is build into the container. 
+To run the node and establish the communication on ROS2 follows these steps.
+
+1. **Launch the ROS1 node**
+   ```bash
+   docker run -it --name yaskawa_container ros_bridge:yaskawa
+   source /opt/ros/noetic/setup.bash 
+   roslaunch sun_yaskawa_nodes bringup_motoman.launch
+    ```
+2. **Launch the ROS bridge**
+
+   In a new terminal, enter in the previous container:
+   ```bash
+   docker exec yaskawa_container /bin/bash
+    ```
+   Then, source the setup.bash to run ros2 commands:
+   ```bash
+   source /opt/ros/foxy/setup.bash 
+    ```
+   Now, launch the ros bridge:
+   ```bash
+    ros2 run ros1_bridge dynamic_bridge --bridge-all-topics 
+    ```
+    Run ```bash ros2 run ros1_bridge dynamic_bridge --help``` to see the available options for the bridge (ROS1->ROS2, or ROS2->ROS1, or ROS1<->ROS2).
+
 
 
