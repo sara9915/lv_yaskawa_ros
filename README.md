@@ -87,5 +87,9 @@ To run the node and establish the communication on ROS2 follows these steps.
     ```
     Run ```bash ros2 run ros1_bridge dynamic_bridge --help``` to see the available options for the bridge (ROS1->ROS2, or ROS2->ROS1, or ROS1<->ROS2).
 
+   Now in a new terminal, you are able to see all the ROS1 topics from ROS2:
+   ```bash
+   ros2 topics list
+   ```
 
 
