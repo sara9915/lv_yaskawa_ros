@@ -8,6 +8,7 @@ WORKDIR $OVERLAY_WS_ROS1/src
 
 
 # Usefull packages
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AD19BAB3CBF125EA
 RUN apt update -y \
     && apt upgrade -y \
     && apt install -y \
